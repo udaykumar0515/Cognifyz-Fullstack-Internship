@@ -1,0 +1,243 @@
+
+# **Task Documentation**
+
+## **Task 1**
+
+### **Client-Side (HTML)**
+
+- **HTML Document Structure**:
+  - `<!DOCTYPE html>`: Defines the document type and HTML version.
+  - `<html lang="en">`: Starts the HTML document with English as the language.
+  - `<head>`: Contains meta-information, title, and styles.
+  - `<body>`: Contains the content of the page, including a form.
+
+- **Head Section**:
+  - `<meta charset="UTF-8">`: Sets character encoding to UTF-8.
+  - `<meta name="viewport" content="width=device-width, initial-scale=1.0">`: Ensures proper scaling on mobile devices.
+  - `<title>Task1</title>`: Sets the title of the page.
+  - `<style>`: Contains CSS styles for the page, such as layout, font, and form styling.
+
+- **Body Section**:
+  - `<form action="/submit" method="POST">`: Defines a form that sends data to the `/submit` endpoint using the POST method.
+  - **Form Elements**:
+    - `First Name` and `Last Name`: Text input fields.
+    - `Gender`: Radio buttons for selecting gender.
+    - `Email` and `Phone Number`: Input fields for email and phone number.
+    - `Address`: Textarea for a multi-line address input.
+    - `Country`: Dropdown selection for country with options "INDIA" and "Others".
+    - `Education`: Dropdown selection for educational qualification.
+    - `Pursuing/Completed`: Radio buttons for education status.
+    - `Date of Birth`: Dropdowns for day, month, and year with JavaScript to populate the options dynamically.
+  - `<button type="submit">Submit</button>`: Button to submit the form.
+
+### **Server-Side Code (Node.js with Express)**
+
+1. **Setup**:
+   - **`const express = require('express');`**: Imports the Express library to build the server.
+   - **`const path = require('path');`**: Imports the Path library to handle file paths.
+   - **`const bodyParser = require('body-parser');`**: Imports Body-Parser to handle form data.
+
+2. **Create Server**:
+   - **`const app = express();`**: Creates a new Express application.
+   - **`const PORT = 3000;`**: Defines the port number where the server will run.
+
+3. **Middleware**:
+   - **`app.use(bodyParser.urlencoded({ extended: true }));`**: Tells the server to use Body-Parser to process form data.
+
+4. **Views**:
+   - **`app.set('view engine', 'ejs');`**: Sets EJS as the template engine to generate HTML pages.
+   - **`app.set('views', path.join(__dirname, 'views'));`**: Specifies where the EJS templates are located.
+
+5. **Routes**:
+   - **`app.get('/', (req, res) => { res.render('Task1'); });`**: When someone visits the root URL (`/`), the server will display the `Task1.ejs` template.
+   - **`app.post('/submit', (req, res) => { const formData = req.body; console.log(formData); res.send('Form submitted successfully!'); });`**: When the form is submitted, the server will:
+     - Get the submitted data.
+     - Print the data to the console.
+     - Send a message saying "Form submitted successfully!" back to the user.
+
+6. **Start the Server**:
+   - **`app.listen(PORT, () => { console.log(`Server is running on http://localhost:${PORT}`); });`**: Starts the server and listens for requests on port 3000. When the server starts, it logs a message to the console.
+
+---
+
+## **Task 2**
+
+### **Client-Side (HTML)**
+
+1. **Dynamically Adding Phone Numbers**:
+   - A section (`div`) to add multiple phone numbers dynamically.
+   - The button `"Add Another Phone Number"` adds a new phone input field and a remove button using JavaScript.
+
+2. **Country Selection with Conditional Fields**:
+   - Dropdown for country selection, which reveals an additional input field for "Other Country" if the user selects "Others."
+   - Uses the JavaScript function `toggleOtherFields()` to conditionally display the "Other Country" field.
+
+3. **Date of Birth Dropdowns (Day, Month, Year)**:
+   - The options for the day are generated dynamically using JavaScript.
+   - The month and year dropdowns are statically defined, but the year dropdown is populated using a loop from the current year back to a specified year, allowing for a range of birth years.
+
+### **Server-Side (Node.js/Express)**
+
+1. **Phone Numbers**:
+   - The form allows the user to submit multiple phone numbers as an array. This is handled by `req.body.phone`, which collects all the phone inputs.
+
+2. **Resume Field**:
+   - The field `resume` is introduced, where the user is prompted to share the resume via email. Although it's an optional section, it's captured in the server-side data.
+
+3. **Submission Result Rendering**:
+   - After successful submission, the server generates a dynamic HTML response displaying all the submitted details (including multiple phone numbers, if provided).
+   - The `window.history.back()` function allows users to go back to the previous form page after viewing the results.
+
+4. **Storing Form Data**:
+   - Data is stored in a file (`submissions.txt`) as JSON strings. Each submission appends a new line with the full form data.
+
+### **JavaScript Functions**
+
+- **`addPhoneNumber()`**: Dynamically adds input fields for phone numbers.
+- **`toggleOtherFields()`**: Displays the "Other Country" input field if "Others" is selected from the country dropdown.
+- **`isValidEmail()`**: Validates email format using a regular expression.
+
+---
+
+## **Task 3**
+
+### **Client-Side (HTML/CSS/JS)**
+
+1. **Tab Navigation**:
+   - **Bootstrap Navigation Tabs**:
+     - Introduced tabbed navigation for "About Me", "Services", and "Application Form" sections.
+     - **`<ul class="nav nav-tabs">`**: Defines a navigation bar with tabs.
+     - **`<div class="tab-content">`**: Contains the content for each tab.
+
+2. **New Sections**:
+   - **About Me**:
+     - A detailed introduction about yourself, including your skills and programming interests.
+   - **Services**:
+     - Lists the various services you offer, like web development, front-end design, back-end development, etc.
+
+3. **Animations**:
+   - **CSS Animation**:
+     - Introduced a **fade-in effect** using keyframes for smoother transitions between tabs.
+     - **`@keyframes fadeIn`**: Defines the fade-in effect from opacity 0 to opacity 1.
+
+4. **Form Improvements**:
+   - **New Fields**:
+     - Introduced fields like "Internship Domain" using radio buttons for domains like Full Stack, Machine Learning, etc.
+     - "Number of Weeks" dropdown to select the duration of the internship.
+   - **Updated Skills Section**:
+     - Added more skill options (e.g., C, C++, Java) using checkboxes.
+   
+5. **CSS Enhancements**:
+   - **Custom Button Hover Effect**:
+     - Buttons change color when hovered using CSS transition.
+     - **`button:hover`** changes the background color on hover.
+   - **Footer Styling**:
+     - Added a fixed footer with customized styles (e.g., background color, text alignment).
+
+6. **JavaScript Functions**:
+   - **`handleFormSubmission()`**:
+     - Handles form data dynamically and prevents default form submission.
+     - Extracts all selected domains and appends them to the form before submitting.
+
+### **Server-Side (Node.js/Express)**
+
+1. **Domain Selection**:
+   - **Internship Domain Handling**:
+     - Captures the selected internship domain (e.g., Full Stack, Machine Learning) from the form.
+     - The value of the domain radio buttons is collected and stored in the file.
+
+2. **Number of Weeks**:
+   - **Dropdown Handling for Weeks**:
+     - Captures the number of weeks for the internship selected by the user.
+     - Stored along with other form data.
+
+3. **Enhanced Submission Result Page**:
+   - **Submission Result Page (HTML)**:
+     - Displays the submitted data, including the selected internship domain and number of weeks.
+     - Uses a **Go Back button** to allow users to navigate back after submission.
+
+4. **File Storage**:
+   - **Data Storage**:
+     - Form data is saved in the `submissions.txt` file with the newly introduced fields, such as domains and weeks.
+
+---
+
+## **Task 4**
+
+### **Client-Side (HTML/CSS/JS)**
+
+1. **Password and Confirm Password Fields**:
+   - **New Form Fields**:
+     - **Password Field**: Added a `password` input field and a `confirm-password` input field to ensure the user confirms the password.
+     - **Show/Hide Password Feature**: Introduced a button (`togglePassword`) that toggles the visibility of the password fields between text and password types.
+
+2. **JavaScript for Password Validation**:
+   - **Password Requirements**:
+     - Minimum length of 8 characters.
+     - Must include at least one lowercase letter, one uppercase
+
+ letter, one number, and one special character.
+   - **Validation on Submission**:
+     - If passwords do not match or do not meet criteria, the form submission is blocked, and an error message is displayed.
+
+3. **Enhanced Form Submission Handling**:
+   - **JavaScript Function**:
+     - Handles dynamic field validation.
+     - Provides visual feedback for errors in password fields.
+
+### **Server-Side (Node.js/Express)**
+
+1. **Password Handling**:
+   - **Validation**:
+     - Validates password criteria (length, character types).
+     - Ensures that passwords meet the specified requirements.
+
+2. **Security Considerations**:
+   - **Password Storage**:
+     - Password is stored in the text file but should ideally be hashed and secured in a real application.
+
+3. **Form Data Exclusion**:
+   - **Excluding Password from Display**:
+     - Ensures that the password is not displayed in the result HTML page or stored in an easily readable format.
+
+4. **Error Handling**:
+   - **Proper Error Responses**:
+     - Sends appropriate error responses if validation fails, providing feedback to the user about why the submission was unsuccessful.
+
+---
+
+## **Task 5**
+
+### **Client-Side (HTML)**
+
+1. **Form Fields**:
+   - **Additional Fields**:
+     - Includes fields for `phone`, `address`, `country`, `education`, `date of birth`, `skills`, `weeks`, and `domains`.
+     - Includes a new field for password with validation.
+
+2. **Password Visibility Toggle**:
+   - **Show/Hide Button**:
+     - Allows toggling the visibility of the password and confirm password fields.
+
+### **Server-Side (Node.js/Express)**
+
+1. **Form Submission Handling**:
+   - **Validation**:
+     - Validates `fname`, `lname`, and `email`.
+     - Validates email format and password strength.
+   - **Data Storage**:
+     - Prepares data for saving in `submissions.txt`.
+     - Excludes the password from the result HTML page.
+
+2. **Error Handling**:
+   - **Validation Errors**:
+     - Returns error messages if validation fails for required fields or password criteria.
+   - **File Write Errors**:
+     - Handles errors in writing data to the file and returns a server error response if necessary.
+
+3. **Submission Result Page**:
+   - **Display**:
+     - Generates an HTML page displaying the submitted details, excluding the password.
+   - **Styling**:
+     - Provides basic styling for the result page.
+

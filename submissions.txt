@@ -1,0 +1,17 @@
+
+  First Name: Uday
+  Last Name: Kumar
+  Email: xyz@gmail.com
+  Phone: 1234567890
+  Address: H.no 5-13-53/BNC/78WP , narayana colony,  Hyderabad, Telangana
+  Country: INDIA
+  
+  Education: btech
+  Education Status: pursuing
+  Date of Birth: 15/5/2006
+  Skills: HTML,CSS,cpp,JavaScript,Python
+  No of Weeks: 6
+  Internship Domain: Full Stack
+  password :#Password123
+  
+

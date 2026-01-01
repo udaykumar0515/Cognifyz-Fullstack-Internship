@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 600px;
+            background-color: #f4f4f4;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        label, button {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .radio-group , .checkbox-group{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .radio-group label ,.checkbox-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+        }
+        .radio-group input , .checkbox-group label{
+            width: auto;
+        }
+        
+        #errorMessage {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .radio-group-vertical {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        }
+
+        .radio-group-horizontal {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .domain input[type="radio"] {
+            margin-right: 10px; 
+            margin-left: 0; 
+        }
+
+        button {
+        width: auto;
+        padding: 10px 20px;
+        background-color: #007bff; 
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        text-align: center;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #form-step-1 button[type="button"], 
+        #form-step-2 button[type="button"] {
+            margin-top: 20px;
+            margin-right: 10px; 
+        }
+
+
+    </style>
+</head>
+<body>
+    <form id="form" onsubmit="return validateForm(event)" method="POST" action="submit">
+            <h1 align="center">Internship Application</h1><br>
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname" required>
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lname" required><br>    
+            <h3>Gender:</h3>
+            <div class="radio-group">
+                <input type="radio" id="male" name="gender" value="Male">
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="Female">
+                <label for="female">Female</label>
+                <input type="radio" id="prefer-not-to-say" name="gender" value="Prefer Not To Say">
+                <label for="prefer-not-to-say">Prefer Not To Say</label>
+            </div><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+            <label for="phones">Phone Numbers:</label>
+            <div id="phone-numbers">
+                <input type="text" name="phone" placeholder="Phone Number">
+            </div>
+            <button type="button" onclick="addPhoneNumber()">Add Another Phone Number</button>
+            
+            <script>
+                function addPhoneNumber() {
+                    const phoneNumbersDiv = document.getElementById('phone-numbers');
+                    const newPhoneDiv = document.createElement('div');
+                    const newPhoneInput = document.createElement('input');
+                    const removeButton = document.createElement('button');
+            
+                    newPhoneInput.type = 'text';
+                    newPhoneInput.name = 'phone';
+                    newPhoneInput.placeholder = 'Phone Number';
+                    
+                    removeButton.textContent = 'Remove';
+                    removeButton.type = 'button';
+                    removeButton.onclick = function () {
+                        phoneNumbersDiv.removeChild(newPhoneDiv);
+                    };
+                    
+                    newPhoneDiv.appendChild(newPhoneInput);
+                    newPhoneDiv.appendChild(removeButton);
+                    phoneNumbersDiv.appendChild(newPhoneDiv);
+                }
+            </script>
+                    
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="3" required></textarea><br>        
+            <div>
+                <label for="country">Country:</label>
+                <select id="country" name="country" onchange="toggleOtherFields()">
+                    <option value="INDIA">INDIA</option>
+                    <option value="Others">Others</option>
+                </select>
+                
+                <div id="otherCountryDiv" style="display: none;">
+                    <label for="otherCountry">Other Country:</label>
+                    <input type="text" id="otherCountry" name="otherCountry"><br><br>
+                </div>
+   
+                <script>
+                    function toggleOtherFields() {
+                        const country = document.getElementById('country').value;
+                        document.getElementById('otherCountryDiv').style.display = (country === 'Others') ? 'block' : 'none';
+                    }
+
+                </script>
+            </div>
+            <label for="collage">Name of Collage:</label>
+                <input type="collage" id="collage" name="collage" required><br>  
+        <br><div>
+            <label for="education">Education:</label>
+            <select id="education" name="education" required>
+                <option value="10th">10th</option>
+                <option value="Inter">Inter/12th</option>
+                <option value="diploma">Diploma(UG)</option>
+                <option value="btech">B.Tech</option>
+                <option value="mtech">M.Tech</option>
+                <option value="diploma-pg">Diploma(PG)</option>
+                <option value="bsc">B.Sc</option>
+                <option value="msc">M.Sc</option>
+                <option value="phd">Ph.D</option>
+                <option value="other">Other</option>
+            </select>
+            <div class="radio-group">
+                <input type="radio" id="pursuing" name="educationStatus" value="pursuing" required>
+                <label for="pursuing">Pursuing</label>
+                <input type="radio" id="completed" name="educationStatus" value="completed" required>
+                <label for="completed">Completed</label>
+            </div>            
+            </div>
+        <br><div>
+                <label>Date Of Birth:</label><br>
+                <label for="day">Day:</label>
+                <select id="day" name="day" required>
+                    <option value="">Day</option>
+                    <!-- Day options (1-31) -->
+                <script>
+                    for (let i = 1; i <= 31; i++) {
+                        document.write('<option value="' + i + '">' + i + '</option>');
+                    }
+                </script>
+            </select>
+            <label for="month">Month:</label>
+            <select id="month" name="month" required>
+                <option value="">Month</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+            <label for="year">Year:</label>
+            <select id="year" name="year" required>
+                <option value="">Year</option>
+                <!-- Year options (1924-2006) -->
+                <script>
+                    const currentYear = new Date().getFullYear();
+                    const startYear = currentYear - 18;  // 18 years ago
+                    const endYear = currentYear - 100;  // 100 years ago
+                    
+                    for (let i = startYear; i >= endYear; i--) {
+                        document.write('<option value="' + i + '">' + i + '</option>');
+                    }
+                    </script>
+            </select><br><br>
+        </div>
+        <div id="errorMessage"></div>
+        <label>Skills:</label>
+        <div class="checkbox-group">
+            <input type="checkbox" id="html" name="skills" value="HTML">
+            <label for="html">HTML</label>
+            <input type="checkbox" id="css" name="skills" value="CSS">
+            <label for="css">CSS</label>
+            <input type="checkbox" id="javascript" name="skills" value="JavaScript">
+            <label for="javascript">JavaScript</label>
+            <input type="checkbox" id="C" name="skills" value="c">
+            <label for="C">C</label>
+            <input type="checkbox" id="CPP" name="skills" value="CPP">
+            <label for="CPP">CPP</label>
+            <input type="checkbox" id="python" name="skills" value="Python">
+            <label for="python">Python</label>
+            <input type="checkbox" id="java" name="skills" value="Java">
+            <label for="java">Java</label>
+        </div><br>
+        <label for="Weeks">Select The Duration of Internship:</label>
+            <select id="weeks" name="weeks" >
+                <option value="2weeks">2Weeks</option>
+                <option value="4weeks">4Weeks</option>
+                <option value="6weeks">6Weeks</option>
+                <option value="8weeks">8Weeks</option>
+            </select>
+        <div>
+            <label for="domain">Select Internship Domain:</label>
+            <select id="domain" name="domain" required>
+                <option value="web Development Intern">Web Development Intern</option>
+                <option value="software Development Intern">Software Development Intern</option>
+                <option value="fullstack Development Intern">Full Stack Development Intern</option>
+                <option value="android Development Intern">Android Development Intern</option>
+                <option value="uiux Development Intern">UI/UX Design Intern</option>
+                <option value="frontend Development Intern">Front-End Development Intern</option>
+            </select>
+        </div>
+
+        <div class="agreement-section">
+            <label for="resume-agreement-text">Kindly share your resume on this email id (Optional): xyz@gmail.com</label>
+            <label for="resume-agreement-text">Please Mention Your Full Name and Collage Name In The Mail</label>
+        </div>        
+            <button type="submit">Submit</button>
+    </form>
+    <script>
+        function displayErrorMessage(message) {
+            const errorMessageDiv = document.getElementById('errorMessage');
+            errorMessageDiv.textContent = message;
+        }
+
+        function validateForm(event) {
+            const fname = document.getElementById('fname').value.trim();
+            const lname = document.getElementById('lname').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (!fname || !lname || !email) {
+                displayErrorMessage('Please fill all required fields.');
+                event.preventDefault(); // Prevent form submission
+                return false;
+            }
+
+            // Validate email format (optional on client-side)
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                displayErrorMessage('Invalid email format.');
+                event.preventDefault(); // Prevent form submission
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
